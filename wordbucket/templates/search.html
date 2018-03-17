@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Word Bucket</title>
+    </head>
+    <body>
+        
+       <h1>Search Word Bucket </h1>
+
+       <form action = "/search/" method="POST">
+            <input tpye="text" name = "word_find" placeholder="Search word" />
+            <br>
+            <input type = "submit" value = "Submit">
+            {% csrf_token %}
+        </form>
+       
+        <p>We found word you want  {{ items2 }} </p>
+       
+        
+        
+    </body>
+</html>

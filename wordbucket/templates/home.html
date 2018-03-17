@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Word Bucket</title>
+    </head>
+    <body>
+        
+       
+        <h1>Word Bucket</h1>
+        <form method="POST">
+            <input name="item_text" id="id_new_item" placeholder="Add new word" />
+            {% csrf_token %}
+        </form>
+        
+        <table id="id_list_table">
+            {% for item in items %}
+                <tr><td>{{ forloop.counter }}: {{ item.word }}</td></tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
