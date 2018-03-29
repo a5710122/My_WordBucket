@@ -11,11 +11,6 @@
               <p> Hi {{ user.username }}! </p>
               <p><a href="{% url 'logout' %}"> Logout </a></p>
               
-              <form method="POST"> 
-              <br>
-                 <input name="item_text" id="id_new_item" placeholder="Add new word" />
-                 {% csrf_token %}
-              </form>
               
         {% else %}
 
@@ -25,6 +20,11 @@
 
         {% endif %}
         
+        <form method="POST"> 
+              <br>
+                 <input name="item_text" id="id_new_item" placeholder="Add new word" />
+                 {% csrf_token %}
+              </form>
         
         <table id="id_list_table">
             {% for item in items %}
