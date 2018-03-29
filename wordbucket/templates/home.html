@@ -6,10 +6,25 @@
         
        
         <h1>Word Bucket</h1>
-        <form method="POST">
-            <input name="item_text" id="id_new_item" placeholder="Add new word" />
-            {% csrf_token %}
-        </form>
+
+        {% if user.is_authenticated %}
+              <p> Hi {{ user.username }}! </p>
+              <p><a href="{% url 'logout' %}"> Logout </a></p>
+              
+              <form method="POST"> 
+              <br>
+                 <input name="item_text" id="id_new_item" placeholder="Add new word" />
+                 {% csrf_token %}
+              </form>
+              
+        {% else %}
+
+              <p>You are not logged in</p>
+              <a href="{% url 'login' %}">Please login</a>
+              <p> Please Login for add word </p>
+
+        {% endif %}
+        
         
         <table id="id_list_table">
             {% for item in items %}

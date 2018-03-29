@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 from wordbucket import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.home_page, name='home'),
     path('search/', views.search_word, name = 'search'), #url to call app search word
-    path('admin/', admin.site.urls),
+    
+    path('accounts/', include('django.contrib.auth.urls')), #url to call auth
+    
+    path('admin/', admin.site.urls), #url admin
     
 ]
