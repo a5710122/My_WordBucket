@@ -21,7 +21,7 @@ class NewVisitorTest(LiveServerTestCase):
         c = Client()
         response = c.post('/login/', {'username' : 'admin', 'password' : 'wordbucket'})   
         response.status_code
-        response = c.get('/accounts/login/')
+        response = c.get('')
         response.content
         print("Response.status_code : ", response.status_code)
 

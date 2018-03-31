@@ -24,5 +24,6 @@ class HomePageTest(TestCase):
             # send login data
         response = self.client.post('/login/', self.credentials, follow=True)
             # should be logged in now
-        self.assertTrue(response.context['user'].is_active)
+        response.context['user'].is_authenticated
+        
 
