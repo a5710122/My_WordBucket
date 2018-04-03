@@ -23,10 +23,17 @@ class NewVisitorTest(LiveServerTestCase):
         response.status_code
         response = c.get('')
         response.content
-        print("Response.status_code : ", response.status_code)
+        #print("Response.status_code : ", response.status_code)
 
     def test_can_start_a_list_and_retrieve_it_later(self): 
         
+        c = Client()
+        response = c.post('/login/', {'username' : 'admin', 'password' : 'wordbucket'})   
+        response.status_code
+        response = c.get('')
+        response.content
+        print("Response.status_code : ", response.status_code)
+
           
         # Ann has heard about a cool new online word app. She goes
         # to check out its homepage

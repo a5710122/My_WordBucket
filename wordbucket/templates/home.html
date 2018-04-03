@@ -3,32 +3,18 @@
         <title>Word Bucket</title>
     </head>
     <body>
-        
-       
         <h1>Word Bucket</h1>
+        {{ d_message }}
+        <form method="POST" id="form1">
+            <input name="word_input" id="id_new_word" placeholder="Add new word" />
+            <input name="explanation_input" id="id_new_eplanation" placeholder="Add explanation" />
+            {% csrf_token %}
+        </form>
+        <button type="submit" form="form1" value="Submit">Submit</button>
 
-        {% if user.is_authenticated %}
-              <p> Hi {{ user.username }}! </p>
-              <p><a href="{% url 'logout' %}"> Logout </a></p>
-              
-              
-        {% else %}
-
-              <p>You are not logged in</p>
-              <a href="{% url 'login' %}">Please login</a>
-              <p> Please Login for add word </p>
-
-        {% endif %}
-        
-        <form method="POST"> 
-              <br>
-                 <input name="item_text" id="id_new_item" placeholder="Add new word" />
-                 {% csrf_token %}
-              </form>
-        
-        <table id="id_list_table">
-            {% for item in items %}
-                <tr><td>{{ forloop.counter }}: {{ item.word }}</td></tr>
+        <table id="id_word_table">
+            {% for word in words %}
+                <tr><td><a href="{% url 'wordbucket:detail' word.id %}">{{ word.word }}</a></td></tr>
             {% endfor %}
         </table>
     </body>

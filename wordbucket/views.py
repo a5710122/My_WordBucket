@@ -1,40 +1,40 @@
 from django.shortcuts import redirect, render
-from wordbucket.models import Item
-
-
-
+from wordbucket.models import Word, Explanation, Like_and_dislike
 
 def home_page(request):
+    d_message = ""
+    words = Word.objects.order_by('-date_pub')[:5]
     if request.method == 'POST':
-        Item.objects.create(word=request.POST['item_text'])
-        return redirect('/')
+        word_reference = str(request.POST['word_input'])
+        # query for duplicate word
+        d_query = Word.objects.filter(word=word_reference)
+        if not d_query :
+            word_ = Word.objects.create(word = request.POST['word_input'])
+            Explanation.objects.create(explanation_text=request.POST['explanation_input'], word=word_)
+            return redirect('/')
+        else :
+            # duplacate word id
+            dword_id = Word.objects.get(word = word_reference)
+            Explanation.objects.create(explanation_text=request.POST['explanation_input'], word=dword_id)
+            d_message = "duplicate word, your explanation add to existing word."
+            return render(request, 'home.html', {'words': words, 'd_message': d_message})
+    return render(request, 'home.html', {'words': words, 'd_message': d_message})
 
-    items = Item.objects.all()
-    return render(request, 'home.html', {'items': items})
+def view_word(request, word_id):
+    word_ = Word.objects.get(id=word_id)
+    return render(request, 'detail.html', {'word': word_})
 
-def search_word(request):
-    """ Search word at User want to find """
+def add_word(request):
+    pass
 
-    word_to_find = None #defind value protect Unbound error
-    items2 = "'Not Found'" #defind value protect Unbound error
-    word_check = " "
+def add_explanation(request):
+    pass
 
-    if request.method == 'POST': #if have event request they call 'POST'
-        word_to_find = request.POST.get('word_find', None) #take value from template
-            
-    items = Item.objects.all() #return obkect type Manager 
-                               #(Manager for start creat Database operation 
-    
-    for i in range(len(items)): #loop find word we want
-        if (word_to_find == items[i].word): #compare value input with word in database
-            items2 = items[i].word
-            word_check = "Found"
-       
-    context = { #variable type 'dictionary' 
-       
-        'word_check' : word_check, #key is name variable we declare in template
-        'items2' : items2
-    }
-    return render(request, 'search.html', context) #call function 'render' for generate HTML to Client
-    
+def vote_like(request):
+    pass
 
+def vote_dislike(request):
+    pass
+
+def search(request):
+    pass
